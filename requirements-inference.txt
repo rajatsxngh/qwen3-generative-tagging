@@ -1,0 +1,12 @@
+# Evaluation (notebooks/02_base_vllm_inference.ipynb, notebooks/04_instruct_vllm_inference.ipynb)
+vllm==0.11.0
+transformers==4.57.6
+datasets==5.0.0
+peft==0.19.1
+accelerate==1.14.0
+evaluate==0.4.6
+wandb>=0.19.0
+scikit-learn
+matplotlib
+seaborn
+tabulate

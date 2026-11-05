@@ -1,0 +1,8 @@
+# Part B training (notebooks/03_instruct_axolotl_training.ipynb)
+# install axolotl with: pip install --no-build-isolation axolotl==0.17.0
+# then restart the Colab session once
+axolotl==0.17.0
+numpy==2.3.5
+numba==0.68.0
+wandb
+pyyaml

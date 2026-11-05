@@ -1,0 +1,138 @@
+{
+  "dataset": {
+    "tags": [
+      "c#",
+      "java",
+      "php",
+      "javascript",
+      "android",
+      "jquery",
+      "c++",
+      "python",
+      "iphone",
+      "asp.net"
+    ],
+    "train_subset": 5000,
+    "validation_subset": 1000,
+    "validation": 6276,
+    "test": 6275
+  },
+  "hardware": "NVIDIA L4 (Google Colab)",
+  "models": {
+    "part_a_qwen3_1.7b_base_trl": {
+      "checkpoint": "Qwen/Qwen3-1.7B-Base",
+      "adapter": "rajatsxngh/hw5a-qwen3-base-tag-adapter",
+      "framework": "TRL SFTTrainer",
+      "quantization": "4-bit NF4 (QLoRA)",
+      "lora": {
+        "r": 128,
+        "alpha": 256,
+        "dropout": 0.01,
+        "target": "all attention and MLP projections"
+      },
+      "trainable_parameters": 139460608,
+      "training_time_min": 40.65,
+      "peak_gpu_memory_gib": 11.14,
+      "best_validation_loss": 0.0638,
+      "validation": {
+        "macro_f1": 0.9488,
+        "accuracy": 0.9546
+      },
+      "test": {
+        "macro_f1": 0.9498,
+        "accuracy": 0.9539
+      },
+      "test_f1_per_tag": {
+        "c#": 0.9201,
+        "java": 0.9369,
+        "php": 0.9617,
+        "javascript": 0.937,
+        "android": 0.976,
+        "jquery": 0.9653,
+        "c++": 0.9722,
+        "python": 0.9869,
+        "iphone": 0.9616,
+        "asp.net": 0.88
+      },
+      "untrained_constrained_validation": {
+        "macro_f1": 0.7454,
+        "accuracy": 0.767
+      },
+      "free_answers_not_a_tag_of_1000": {
+        "untrained": 166,
+        "fine_tuned": 0,
+        "untrained_hit_64_token_limit": 94
+      },
+      "test_inference_questions_per_second": 65
+    },
+    "part_b_qwen3_1.7b_instruct_axolotl": {
+      "checkpoint": "Qwen/Qwen3-1.7B",
+      "adapter": "rajatsxngh/hw5b-qwen3-instruct-tag-adapter",
+      "framework": "Axolotl 0.17.0",
+      "quantization": "4-bit (QLoRA)",
+      "lora": {
+        "r": 128,
+        "alpha": 256,
+        "dropout": 0.01,
+        "target": "all attention and MLP projections"
+      },
+      "trainable_parameters": 139460608,
+      "training_time_min": 39.52,
+      "peak_gpu_memory_gib": 11.05,
+      "peak_gpu_memory_note": "largest value Axolotl logged; it resets the peak counter at each log",
+      "best_validation_loss": 0.0654,
+      "validation": {
+        "macro_f1": 0.9494,
+        "accuracy": 0.9552
+      },
+      "test": {
+        "macro_f1": 0.948,
+        "accuracy": 0.9525
+      },
+      "test_f1_per_tag": {
+        "c#": 0.9284,
+        "java": 0.9312,
+        "php": 0.9684,
+        "javascript": 0.9302,
+        "android": 0.975,
+        "jquery": 0.9588,
+        "c++": 0.9589,
+        "python": 0.9858,
+        "iphone": 0.956,
+        "asp.net": 0.8868
+      },
+      "untrained_constrained_validation": {
+        "macro_f1": 0.1609,
+        "accuracy": 0.2264
+      },
+      "free_answers_not_a_tag_of_1000": {
+        "untrained": 994,
+        "fine_tuned": 0,
+        "untrained_hit_64_token_limit": 411
+      },
+      "test_inference_questions_per_second": 60
+    }
+  },
+  "part_1_reference": {
+    "repo": "https://github.com/rajatsxngh/modernbert-vs-qwen3-qlora",
+    "hardware": "NVIDIA A100 40GB",
+    "modernbert_base_classification_head": {
+      "training_questions": 29287,
+      "trainable_parameters": 149612554,
+      "training_time_min": 8.2,
+      "peak_gpu_memory_gb": 7.05,
+      "validation_macro_f1": 0.9326,
+      "test_macro_f1": 0.9222
+    },
+    "qwen3_1.7b_base_classification_head": {
+      "training_questions": 5000,
+      "trainable_parameters": 139481088,
+      "training_time_min": 17.6,
+      "peak_gpu_memory_gb": 4.66,
+      "validation_macro_f1": 0.9457,
+      "test_macro_f1": 0.9412,
+      "test_accuracy": 0.9465
+    }
+  },
+  "wandb_project": "https://forge.coreweave.com/wandb/rajat-utd/hw5_decoder_tags"
+}

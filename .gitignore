@@ -1,0 +1,10 @@
+# data and training artifacts
+data/*.csv
+*.csv
+models/
+results/checkpoints/
+wandb/
+# python / jupyter
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
