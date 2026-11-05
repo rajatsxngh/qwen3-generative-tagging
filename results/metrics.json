@@ -21,7 +21,7 @@
   "models": {
     "part_a_qwen3_1.7b_base_trl": {
       "checkpoint": "Qwen/Qwen3-1.7B-Base",
-      "adapter": "rajatsxngh/hw5a-qwen3-base-tag-adapter",
+      "adapter": "rajatsxngh/qwen3-base-tag-adapter",
       "framework": "TRL SFTTrainer",
       "quantization": "4-bit NF4 (QLoRA)",
       "lora": {
@@ -67,7 +67,7 @@
     },
     "part_b_qwen3_1.7b_instruct_axolotl": {
       "checkpoint": "Qwen/Qwen3-1.7B",
-      "adapter": "rajatsxngh/hw5b-qwen3-instruct-tag-adapter",
+      "adapter": "rajatsxngh/qwen3-instruct-tag-adapter",
       "framework": "Axolotl 0.17.0",
       "quantization": "4-bit (QLoRA)",
       "lora": {
