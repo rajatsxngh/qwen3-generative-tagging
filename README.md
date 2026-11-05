@@ -52,6 +52,14 @@ The dataset file is not included. See [`data/README.md`](data/README.md) for the
 - Two extra experiments per model: the untrained model with the constraint, and untrained vs. fine-tuned without the constraint (counting answers that are not a tag).
 - All runs logged to **Weights & Biases**: [public project](https://forge.coreweave.com/wandb/rajat-utd/hw5_decoder_tags).
 
+
+## Trained models
+
+Both LoRA adapters are on the Hugging Face Hub, with a short example of how to load them:
+
+- **Part A (base model):** [rajatsxngh/qwen3-base-tag-adapter](https://huggingface.co/rajatsxngh/qwen3-base-tag-adapter), adapter for `Qwen/Qwen3-1.7B-Base`
+- **Part B (instruction model):** [rajatsxngh/qwen3-instruct-tag-adapter](https://huggingface.co/rajatsxngh/qwen3-instruct-tag-adapter), adapter for `Qwen/Qwen3-1.7B`
+
 ## Results
 
 | Part A (base, TRL): test confusion matrix | Part B (instruction, Axolotl): test confusion matrix |
