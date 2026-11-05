@@ -16,7 +16,7 @@ This is part 2 of my Stack Exchange tagging project. In [part 1](https://github.
 - **Writing the label beat the classification head.** With the same base model and the same 5,000 training questions, generating the tag as text reached 0.950 test macro-F1, vs. 0.941 for the classification head (+0.9 points).
 - **Base and instruction models end up in the same place.** After fine-tuning, both score about 0.95 (0.950 vs. 0.948). With one run each, that gap is within run-to-run noise.
 - **But they start very differently.** Before any training, the base model just continues the `### LABEL:` pattern and usually writes a tag: 0.745 validation macro-F1 with the constraint, and only 166 of 1,000 free answers were not a tag. The instruction model answers like a chatbot (*"The text is discussing **JavaScript**…"*): 994 of 1,000 free answers were not a tag, and forcing it to start with a tag gave only 0.161 macro-F1.
-- **Fine-tuning fixes the format completely.** After training, both models gave a valid tag on **1,000 of 1,000** free (unconstrained) answers. Constrained decoding is essential for an untrained model, and a safety net for a fine-tuned one.
+- **Fine-tuning fixes the format completely.** After training, both models gave a valid tag on **1,000 of 1,000** free (unconstrained) answers on validation questions. Constrained decoding is essential for an untrained model, and a safety net for a fine-tuned one.
 - **One space character matters.** The completion is `" javascript"`, not `"javascript"`: with the leading space it is a single different token (ID 35710 vs. 14073). Prompts and constrained choices at inference must match training exactly, down to that space.
 - **The same tag pairs stay hard:** c# ↔ asp.net, javascript ↔ jquery, javascript ↔ php and iphone ↔ android. They share code and topics (ASP.NET apps are written in C#; jQuery *is* JavaScript).
 
@@ -51,7 +51,6 @@ The dataset file is not included. See [`data/README.md`](data/README.md) for the
 - Greedy decoding with `StructuredOutputsParams(choice=...)`, so every answer is exactly one of the ten tags.
 - Two extra experiments per model: the untrained model with the constraint, and untrained vs. fine-tuned without the constraint (counting answers that are not a tag).
 - All runs logged to **Weights & Biases**: [public project](https://forge.coreweave.com/wandb/rajat-utd/hw5_decoder_tags).
-
 
 ## Trained models
 
@@ -108,7 +107,7 @@ All numbers are also in [`results/metrics.json`](results/metrics.json).
 
 - Single run per model with one seed; differences of about half a point are within noise.
 - Part 1 ran on an A100 and this part on an L4, so training times are not directly comparable across the two parts.
-- Generation is slower than a classification head at inference (about 60–65 questions/second here with vLLM on an L4).
+- Inference speed was about 60–65 questions/second with vLLM on an L4. Part 1's classification head ran on an A100, so the two speeds are not directly comparable.
 - **Next:** several seeds per setup, the same experiment with fewer training questions (does the instruction model's poor start matter more with less data?), and a larger instruction model.
 
 ## Repository structure
@@ -133,7 +132,7 @@ All numbers are also in [`results/metrics.json`](results/metrics.json).
 1. Open a notebook in Google Colab with an **A100, L4 or RTX PRO 6000 GPU**, in a fresh session for each notebook.
 2. In the **Configuration** cell, change `HF_USERNAME`, `HF_REPO_ID` and `WANDB_ENTITY` to your own Hugging Face and W&B accounts (they are set to mine, and the notebook checks that you are signed in to the account in `HF_USERNAME`).
 3. Add `HF_TOKEN` (with write access, to push the adapter) and `WANDB_API_KEY` as Colab secrets.
-4. The first time you run the data cell, it mounts Google Drive and asks you to upload `multiclass_split.csv` from your computer. It saves the file to Drive (`MyDrive/HW5_Decoder_Tags/`), so the other notebooks find it there.
+4. You also need the dataset file, which is not included (see [`data/README.md`](data/README.md)). The notebook asks you to upload it the first time.
 5. Run the training notebook, then the matching inference notebook in a new session. The first cell of each installs its pinned packages.
 
 ## Tech stack
