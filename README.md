@@ -131,9 +131,10 @@ All numbers are also in [`results/metrics.json`](results/metrics.json).
 ## How to run
 
 1. Open a notebook in Google Colab with an **A100, L4 or RTX PRO 6000 GPU**, in a fresh session for each notebook.
-2. Add `HF_TOKEN` (with write access, to push the adapter) and `WANDB_API_KEY` as Colab secrets.
-3. Put `multiclass_split.csv` in Google Drive when the data cell asks for it.
-4. Run the training notebook, then the matching inference notebook in a new session. The first cell of each installs its pinned packages.
+2. In the **Configuration** cell, change `HF_USERNAME`, `HF_REPO_ID` and `WANDB_ENTITY` to your own Hugging Face and W&B accounts (they are set to mine, and the notebook checks that you are signed in to the account in `HF_USERNAME`).
+3. Add `HF_TOKEN` (with write access, to push the adapter) and `WANDB_API_KEY` as Colab secrets.
+4. The first time you run the data cell, it mounts Google Drive and asks you to upload `multiclass_split.csv` from your computer. It saves the file to Drive (`MyDrive/HW5_Decoder_Tags/`), so the other notebooks find it there.
+5. Run the training notebook, then the matching inference notebook in a new session. The first cell of each installs its pinned packages.
 
 ## Tech stack
 
